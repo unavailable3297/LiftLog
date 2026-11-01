@@ -1,0 +1,97 @@
+LIFT LOG 1.8 - WEAR OS COMPANION
+
+What you get
+- Your previously logged exercises first, most recently logged first.
+- Last weight and date, including histories for exercises hidden on the phone.
+- Large minus/plus controls, exact entry by tapping the weight, adjustable step.
+- New entries saved locally on the watch, then added to the phone's full history.
+- All exercises by muscle group as a secondary option; hidden exercises stay hidden there.
+- Bezel/crown scrolling when the watch supplies rotary input events.
+
+Requires a Wear OS 3 or newer watch paired to your Android phone. Designed for
+Galaxy Watch4 Classic / Watch6 Classic; the user's exact model is not confirmed.
+Not for old Tizen Galaxy watches or Apple Watch. Keep Google Play services updated.
+
+FIRST: UPDATE YOUR PHONE
+1. Download LiftLog.apk 1.8 on your phone.
+2. Install it OVER the existing Lift Log. Do not uninstall or clear storage.
+3. Open Lift Log. Check your saved weights are present.
+
+SECOND: INSTALL ON THE WATCH (WINDOWS)
+Opening LiftLog-Watch.apk on the phone does NOT install it on the watch.
+Use the included Windows installer, or use ADB manually as described below.
+
+1. Extract ALL of LiftLog-Watch-Setup.zip into a folder on your Windows PC.
+2. Connect the PC and watch to the same Wi-Fi network.
+3. On the watch: Settings > About watch > Software information.
+   Tap Software version repeatedly (usually five times) until Developer mode
+   is enabled. Menu names can vary by watch software version.
+4. Return to Settings > Developer options. Enable ADB debugging and Wireless
+   debugging (older watch software calls it Debug over Wi-Fi).
+5. Double-click Install-Watch.cmd in the extracted folder.
+6. Follow its prompts. If your watch has Pair new device:
+   - Enter the pairing IP:port from Pair new device and its pairing code.
+   - Go BACK to the Wireless debugging screen for the CONNECTION IP:port.
+   - The connection port usually differs from the pairing port.
+7. Allow debugging on the watch if prompted. The installer checks that the
+   selected device is a watch before installing. It does not uninstall anything.
+8. Open Lift Log on both devices. On the watch, scroll down and tap Sync with
+   phone. On the phone, Watch companion > Sync with watch is also available.
+9. Once your logged exercises appear, disable ADB and Wireless debugging.
+   Normal Lift Log sync does not require debugging to remain enabled.
+
+MANUAL ADB (WINDOWS / MAC / LINUX)
+Use Google's Android SDK Platform-Tools. On Windows, the included platform-tools
+folder contains the official Windows tools and their notices.
+Replace the IP addresses and ports below with the ones displayed by your watch.
+
+adb pair WATCH_IP:PAIRING_PORT
+adb connect WATCH_IP:CONNECTION_PORT
+adb -s WATCH_IP:CONNECTION_PORT shell pm list features
+  Verify output includes feature:android.hardware.type.watch before continuing.
+adb -s WATCH_IP:CONNECTION_PORT install -r LiftLog-Watch.apk
+adb -s WATCH_IP:CONNECTION_PORT shell am start -n com.axs.gymtrack/.WatchActivity
+
+Older watch software with only Debug over Wi-Fi: skip pair and use the address
+shown on the watch (commonly port 5555); approve the prompt on the watch.
+
+EVERYDAY USE
+Tap an exercise, adjust the displayed weight, then Save. Leaving the last
+weight unchanged and tapping Save records another entry. Tap the large weight
+for an exact number. Step cycles through 0.5, 1, 2.5, 5 and 10. Convert to kg/lb
+converts the entered value; it does not relabel old entries.
+
+'Saved on watch / waiting for phone' means the entry is safe locally but the
+phone has not yet confirmed it. Reconnect the paired devices and open both apps
+to retry if needed. Full history and deletion are managed on the phone.
+Do not uninstall or clear either app's storage while waiting for sync.
+
+IF EXERCISES DO NOT APPEAR
+- Confirm the phone shows version 1.8 and retains your saved weights.
+- Open Lift Log on both devices, then tap the sync buttons.
+- Check the watch is connected in the Galaxy Wearable app.
+- Keep Google Play services enabled and current on both devices.
+- If a device/app was force-stopped, reopen it to resume syncing.
+- Do not uninstall as a troubleshooting step: that would remove local data.
+
+VALIDATION AND LIMITS
+Both APKs compile and use the existing Lift Log signing key and package ID.
+The phone retains its original history store and all 121 exercise identifiers.
+Automated merge and storage tests cover retries, offline entries, older snapshots,
+phone deletions, and concurrent phone edits. Native watch UI is tested with
+Robolectric, not on a physical Galaxy Watch. Real paired-device transport and
+Windows installation must still be checked on your devices.
+
+Sync uses Google's Wear OS Data Layer. It normally uses the paired Bluetooth
+connection and may use Google's encrypted relay when appropriate; it is not a
+cloud backup. No Lift Log account, backend, health permissions, location or
+microphone access is required.
+
+Official setup references
+https://developer.android.com/training/wearables/get-started/debug-wifi
+https://developer.android.com/tools/releases/platform-tools
+https://developer.android.com/training/wearables/data/overview
+
+Windows Platform-Tools downloaded from Google's official distribution:
+https://dl.google.com/android/repository/platform-tools-latest-windows.zip
+See platform-tools/NOTICE.txt for its notices. Installer source is provided.

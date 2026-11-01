@@ -1,0 +1,3 @@
+<resources><style name="WatchTheme" parent="android:style/Theme.Material.NoActionBar">
+ <item name="android:fontFamily">sans</item><item name="android:windowLightStatusBar">false</item><item name="android:windowActionModeOverlay">true</item><item name="android:colorAccent">#C5F279</item><item name="android:windowBackground">#101816</item><item name="android:windowFullscreen">true</item>
+</style></resources>

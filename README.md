@@ -3,7 +3,9 @@
 An offline gym weight log with 121 exercises, 13 muscle groups, two photos or labeled illustrations per exercise, searchable lists, dated weight entries in lb/kg, hide/restore controls, and per-exercise progress graphs.
 
 ## Install
-[Download the phone APK (v1.9)](https://github.com/unavailable3297/LiftLog/raw/refs/heads/main/downloads/LiftLog.apk). Open it on an Android phone (Android 8 or newer). If prompted, allow installation from the app you used to open this APK. No Lift Log account is needed. Phone logging works offline; optional watch sync uses Google Play services. This is a personal-use development build, not a Play Store release.
+The complete phone v1.9 source is included. The prebuilt phone APK is not included in this repository; build it using the instructions below and your original private signing key. Android 8 or newer is required. Install updates over the existing app without uninstalling to retain your weights. No Lift Log account is needed. Phone logging works offline; optional watch sync uses Google Play services. This is a personal-use development build, not a Play Store release.
+
+[Download the Wear OS companion APK (v1.8)](https://github.com/unavailable3297/LiftLog/raw/refs/heads/main/downloads/LiftLog-Watch.apk). Install it separately on your paired watch using the instructions in `watch-install/`.
 
 ## Use
 Choose a muscle group, tap an exercise, enter the weight, and tap Save weight. The latest weight and previous entries appear on that exercise. Hide exercise removes it from normal browsing; Hidden on the home screen lets you restore it. Hiding does not delete history. A mistaken entry can be deleted after confirmation.
@@ -27,7 +29,7 @@ The build expects a local keystore with alias `androiddebugkey` and the developm
 keytool -genkeypair -keystore development.keystore -alias androiddebugkey -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Lift Log Development"
 ```
 
-For existing installations, restore the original key instead. The keystore is ignored by Git; never commit it. The prebuilt APK in `downloads/` is already signed with the original key.
+For existing installations, restore the original key instead. The keystore is ignored by Git; never commit it. The prebuilt watch APK in `downloads/` is already signed with the original key.
 
 The UI is bundled HTML/CSS/JavaScript in app/src/main/assets, hosted by a small Java Android activity. The phone and watch now use Google Play services Wearable Data Layer 20.0.1 for optional sync. There is no Lift Log backend or analytics. SharedPreferences stores the JSON data via a local JavaScript bridge. Browser preview uses localStorage instead and has separate data from the phone.
 

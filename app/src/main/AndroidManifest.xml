@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="10" android:versionName="1.9">
+ <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="34" />
+ <application android:label="Lift Log" android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme" android:allowBackup="false" android:supportsRtl="true" android:usesCleartextTraffic="false">
+  <activity android:name=".MainActivity" android:launchMode="singleTop" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" android:windowSoftInputMode="adjustResize">
+   <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+  </activity>
+ <service android:name=".PhoneWearService" android:exported="true">
+   <intent-filter>
+    <action android:name="com.google.android.gms.wearable.DATA_CHANGED"/>
+    <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED"/>
+    <data android:scheme="wear" android:host="*" android:pathPrefix="/liftlog/v1/"/>
+   </intent-filter>
+  </service>
+ </application>
+</manifest>

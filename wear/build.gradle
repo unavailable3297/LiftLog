@@ -1,0 +1,22 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.axs.gymtrack'
+    compileSdk 35
+    buildToolsVersion '35.0.0'
+    defaultConfig { applicationId 'com.axs.gymtrack'; minSdk 30; targetSdk 34; versionCode 9; versionName '1.8' }
+    signingConfigs { debug { storeFile file('../development.keystore'); storePassword 'android'; keyAlias 'androiddebugkey'; keyPassword 'android' } }
+    sourceSets { main.java.srcDirs += '../shared/src/main/java' }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+    testOptions { unitTests.includeAndroidResources = true
+        unitTests.all {
+            systemProperty 'robolectric.dependency.repo.url', 'https://repo.maven.apache.org/maven2'
+            ['http.proxyHost','http.proxyPort','https.proxyHost','https.proxyPort'].each { k -> if (System.getProperty(k)) systemProperty k, System.getProperty(k) }
+        }
+    }
+}
+dependencies {
+    implementation 'com.google.android.gms:play-services-wearable:20.0.1'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.json:json:20240303'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
+}

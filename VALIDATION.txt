@@ -1,0 +1,30 @@
+Lift Log 1.9 validation
+
+Phone APK built successfully with Gradle 8.9, JDK 17 and Android SDK 35.
+Package com.axs.gymtrack, version 1.9 / code 10. APK signature verified and
+certificate matched to the previous 1.8 phone APK. Packaged JavaScript, HTML,
+CSS and catalog match current source bytes. Catalog still has 121 exercises.
+
+Catalog, signing key, native phone persistence, shared sync code and all watch
+files are byte-for-byte unchanged from the previous source archive. This is a
+phone-only update; the existing 1.8 watch companion remains compatible.
+
+tests/progress.cjs passed in Chromium with Playwright:
+- lb/kg conversion, chronology, tied timestamps and no input mutation.
+- All time, 90-day and 30-day filters; graph unit controls; selected-point
+  readouts, tap selection, previous/next buttons and boundary disabling.
+- Empty, single-point, zero-weight, equal-weight and empty-date-range cases.
+- Narrow 320px and wider 840px layouts without horizontal overflow; visual
+  inspection of standard phone and narrow-screen graph screenshots.
+- Graph interactions preserve an unsaved weight form and do not write storage.
+- Saving, deleting and reopening update the graph correctly. All 121 existing
+  fixture histories and the hidden flag were preserved exactly.
+- No browser JavaScript errors.
+
+Command: CHROMIUM_PATH=/path/to/chromium node tests/progress.cjs
+The test uses isolated synthetic data, never the user's saved phone data.
+
+No physical phone/watch testing. Native UI/sync tests were not repeated because
+native code and the sync protocol did not change. Real paired-device transport
+remains untested here. Install the phone APK over the existing app; do not
+uninstall or clear storage when updating.
